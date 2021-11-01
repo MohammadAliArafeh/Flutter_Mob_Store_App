@@ -3,21 +3,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mob_store_app/layout/home_layout.dart';
 import 'package:mob_store_app/modules/login/cubit/cubit.dart';
 import 'package:mob_store_app/modules/login/cubit/states.dart';
 import 'package:mob_store_app/modules/register/register_screen.dart';
 import 'package:mob_store_app/shared/components/components.dart';
+import 'package:mob_store_app/shared/network/local/cache_helper.dart';
 import 'package:mob_store_app/shared/styles/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
   var formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+
+  void submit(context) {
+    if (formKey.currentState!.validate()) {
+       LoginCubit.get(context).userLogin(
+          email: emailController.text, password: passwordController.text);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
@@ -25,6 +34,9 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginSuccessState) {
             if (state.loginModel.status) {
               showToast(state.loginModel.massage, ToastState.SUCCESS);
+              CacheHelper.setData(
+                  key: 'token', value: state.loginModel.data!.token);
+              pushAndFinish(context, HomeLayout());
             } else {
               showToast(state.loginModel.massage, ToastState.ERROR);
             }
@@ -56,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                         type: TextInputType.emailAddress,
                         onTap: () {},
                         onChange: (val) {},
-                        onSubmit: (val) {},
+                        onSubmit: (val)=> submit(context),
                         validate: (String value) {
                           if (value.isEmpty || value == '') {
                             return 'E-Mail Should not be empty.';
@@ -74,8 +86,8 @@ class LoginScreen extends StatelessWidget {
                         type: TextInputType.visiblePassword,
                         onTap: () {},
                         onChange: (val) {},
-                        onSubmit: (val) {},
-                        isPassword: true,
+                        onSubmit: (val) => submit(context),
+                        isPassword: LoginCubit.get(context).passState,
                         validate: (String value) {
                           if (value.isEmpty || value == '') {
                             return 'Password Should not be empty.';
@@ -84,8 +96,8 @@ class LoginScreen extends StatelessWidget {
                         },
                         label: 'Password',
                         prefix: Icons.password,
-                        suffixPressed: () {},
-                        suffix: Icons.remove_red_eye_outlined,
+                        suffixPressed: () =>LoginCubit.get(context).changePasswordState(),
+                        suffix: LoginCubit.get(context).passIcon,
                       ),
                       SizedBox(
                         height: 18,
@@ -95,13 +107,7 @@ class LoginScreen extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             )
                           : defaultButton(
-                              function: () {
-                                if (formKey.currentState!.validate()) {
-                                  cubit.userLogin(
-                                      email: emailController.text,
-                                      password: passwordController.text);
-                                }
-                              },
+                              function: () =>submit(context),
                               text: 'login',
                               isUpperCase: true,
                             ),
