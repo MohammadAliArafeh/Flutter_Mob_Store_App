@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mob_store_app/layout/cubit/cubit.dart';
 import 'package:mob_store_app/layout/home_layout.dart';
 import 'package:mob_store_app/modules/login/login_screen.dart';
 import 'package:mob_store_app/modules/on_boarding/on_boarding_screen.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => AppCubit(),
+          ),
+          BlocProvider(
+            create: (context) => HomeCubit(),
           ),
         ],
         child: widget,
