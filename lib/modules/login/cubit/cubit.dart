@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mob_store_app/models/login_model.dart';
@@ -14,13 +15,12 @@ class LoginCubit extends Cubit<LoginStates>{
 
   late LoginModel loginModel;
 
-  userLogin({
+  void userLogin({
     required String email,
     required String password,
 }) async {
     emit(LoginLoadingState());
-
-   await DioHelper.postData(url: LOGIN, data: {
+    DioHelper.postData(url: LOGIN, data: {
       'email':email,
       'password':password
     }).then((value) {
@@ -32,5 +32,14 @@ class LoginCubit extends Cubit<LoginStates>{
       emit(LoginErrorState());
       print(error.toString() + ' s s s s s s s ss s s s s s');
     });
+  }
+
+  IconData passIcon = Icons.remove_red_eye_outlined;
+  bool passState = true;
+
+  void changePasswordState(){
+    passState = !passState;
+    passIcon = passState? Icons.visibility_off_outlined:Icons.remove_red_eye_outlined;
+    emit(LoginChangePasswordStateState());
   }
 }
