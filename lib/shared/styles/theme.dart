@@ -1,16 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mob_store_app/shared/styles/colors.dart';
 
-ThemeData lightTheme = ThemeData(
-  scaffoldBackgroundColor: Colors.white,
+ThemeData darkTheme = ThemeData(
+  primarySwatch: Colors.blue,
+  scaffoldBackgroundColor: Colors.grey,
   appBarTheme: const AppBarTheme(
-    systemOverlayStyle: SystemUiOverlayStyle.light,
-    backgroundColor: Colors.white,
+    titleSpacing: 20.0,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.grey,
+      statusBarIconBrightness: Brightness.light,
+    ),
+    backgroundColor: Colors.grey,
     elevation: 0.0,
-  ),
-  textTheme: const TextTheme(
-    headline4: TextStyle(
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 20.0,
       fontWeight: FontWeight.bold,
     ),
+    iconTheme: IconThemeData(
+      color: Colors.white,
+    ),
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: defaultColor,
+    unselectedItemColor: Colors.grey,
+    elevation: 20.0,
+    backgroundColor:Colors.grey,
+  ),
+  textTheme: const TextTheme(
+    bodyText1: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+  ),
+  fontFamily: 'Jannah',
+);
+
+ThemeData lightTheme = ThemeData(
+  primarySwatch: Colors.blue,
+  scaffoldBackgroundColor: Colors.white,
+  appBarTheme: const AppBarTheme(
+    titleSpacing: 20.0,
+    backwardsCompatibility: false,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+    backgroundColor: Colors.white,
+    elevation: 0.0,
+    titleTextStyle: TextStyle(
+      color: Colors.black,
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+    ),
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: defaultColor,
+    unselectedItemColor: Colors.grey,
+    elevation: 20.0,
+    backgroundColor: Colors.white,
+  ),
+  textTheme: const TextTheme(
+    bodyText1: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+      color: Colors.black,
+    ),
+  ),
+  fontFamily: 'Jannah',
 );
