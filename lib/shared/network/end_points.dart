@@ -2,3 +2,5 @@
 
 String LOGIN = 'login';
 String REGISTER = 'register';
+String HOMEDATA = 'home';
+String GET_CATEGORIES = 'categories';

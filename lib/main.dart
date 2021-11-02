@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mob_store_app/layout/cubit/cubit.dart';
 import 'package:mob_store_app/layout/home_layout.dart';
 import 'package:mob_store_app/modules/login/login_screen.dart';
 import 'package:mob_store_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:mob_store_app/shared/app_cubit/cubit.dart';
 import 'package:mob_store_app/shared/bloc_observer.dart';
+import 'package:mob_store_app/shared/components/constants.dart';
 import 'package:mob_store_app/shared/network/local/cache_helper.dart';
 import 'package:mob_store_app/shared/network/remote/dio_helper.dart';
 import 'package:mob_store_app/shared/styles/theme.dart';
@@ -16,11 +18,11 @@ void main() async {
   await CacheHelper.init();
   DioHelper.init();
   bool? onBoarding = await CacheHelper.getData(key: 'onBoarding');
-  String? token = await CacheHelper.getData(key: 'token');
+  token = await CacheHelper.getData(key: 'token');
   print(token);
   print(onBoarding);
   Widget widget;
-  if (token!.isNotEmpty) {
+  if (token.isNotEmpty) {
     widget = HomeLayout();
   } else if (onBoarding ?? false) {
     widget = LoginScreen();
@@ -45,6 +47,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => AppCubit(),
+          ),
+          BlocProvider(
+            create: (context) => HomeCubit()..getHomeData()..getCategories(),
           ),
         ],
         child: widget,

@@ -24,4 +24,20 @@ class DioHelper {
 
     return dio!.post(url, data: data, queryParameters: query);
   }
+
+  static Future<Response> getData({
+    required String url,
+    Map<String, dynamic>? query,
+    String lang = 'en',
+   required String token,
+  }) async {
+
+    dio!.options.headers = {
+      'lang': lang,
+      'Content-Type': 'application/json',
+      'Authorization':token
+    };
+
+    return dio!.get(url,queryParameters: query);
+  }
 }
