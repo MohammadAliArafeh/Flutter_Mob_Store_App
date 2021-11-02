@@ -8,6 +8,7 @@ import 'package:mob_store_app/modules/login/cubit/cubit.dart';
 import 'package:mob_store_app/modules/login/cubit/states.dart';
 import 'package:mob_store_app/modules/register/register_screen.dart';
 import 'package:mob_store_app/shared/components/components.dart';
+import 'package:mob_store_app/shared/components/constants.dart';
 import 'package:mob_store_app/shared/network/local/cache_helper.dart';
 import 'package:mob_store_app/shared/styles/colors.dart';
 
@@ -20,7 +21,7 @@ class LoginScreen extends StatelessWidget {
 
   void submit(context) {
     if (formKey.currentState!.validate()) {
-       LoginCubit.get(context).userLogin(
+      LoginCubit.get(context).userLogin(
           email: emailController.text, password: passwordController.text);
     }
   }
@@ -32,13 +33,18 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            if (state.loginModel.status) {
-              showToast(massage: state.loginModel.massage, state: ToastState.SUCCESS);
+            if (state.loginModel.status!) {
+              showToast(
+                  massage: state.loginModel.massage, state: ToastState.SUCCESS);
               CacheHelper.setData(
-                  key: 'token', value: state.loginModel.data!.token);
+                      key: 'token', value: state.loginModel.data!.token)
+                  .then((value) {
+                token = state.loginModel.data!.token!;
+              });
               pushAndFinish(context, HomeLayout());
             } else {
-              showToast(massage: state.loginModel.massage,state: ToastState.ERROR);
+              showToast(
+                  massage: state.loginModel.massage, state: ToastState.ERROR);
             }
           }
         },
@@ -68,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                         type: TextInputType.emailAddress,
                         onTap: () {},
                         onChange: (val) {},
-                        onSubmit: (val)=> submit(context),
+                        onSubmit: (val) => submit(context),
                         validate: (String value) {
                           if (value.isEmpty || value == '') {
                             return 'E-Mail Should not be empty.';
@@ -96,7 +102,8 @@ class LoginScreen extends StatelessWidget {
                         },
                         label: 'Password',
                         prefix: Icons.password,
-                        suffixPressed: () =>LoginCubit.get(context).changePasswordState(),
+                        suffixPressed: () =>
+                            LoginCubit.get(context).changePasswordState(),
                         suffix: LoginCubit.get(context).passIcon,
                       ),
                       SizedBox(
@@ -107,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             )
                           : defaultButton(
-                              function: () =>submit(context),
+                              function: () => submit(context),
                               text: 'login',
                               isUpperCase: true,
                             ),

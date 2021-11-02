@@ -1,7 +1,7 @@
 class FavoritesModel
 {
   bool? status;
-  Null? message;
+  String? message;
   Data? data;
 
   FavoritesModel.fromJson(Map<String, dynamic> json)
