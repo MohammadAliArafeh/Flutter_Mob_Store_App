@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             create: (context) => AppCubit(),
           ),
           BlocProvider(
-            create: (context) => HomeCubit()..getHomeData()..getCategories(),
+            create: (context) => HomeCubit()..getHomeData()..getCategories()..getFavorites(),
           ),
         ],
         child: widget,

@@ -5,6 +5,7 @@ import 'package:mob_store_app/layout/cubit/cubit.dart';
 import 'package:mob_store_app/layout/cubit/states.dart';
 import 'package:mob_store_app/models/category_model.dart';
 import 'package:mob_store_app/models/home_data_model.dart';
+import 'package:mob_store_app/shared/components/components.dart';
 import 'package:mob_store_app/shared/styles/colors.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -12,14 +13,14 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {
-        // if (state is ShopSuccessChangeFavoritesState) {
-        //   if (!state.model.status) {
-        //     showToast(
-        //       text: state.model.message,
-        //       state: ToastStates.ERROR,
-        //     );
-        //   }
-        // }
+        if (state is HomeSuccessChangeFavoritesState) {
+          if (!state.model!.status!) {
+            showToast(
+              massage: state.model!.message!,
+              state: ToastState.ERROR,
+            );
+          }
+        }
       },
       builder: (context, state) {
         if ((HomeCubit.get(context).homeModel != null &&
@@ -229,12 +230,12 @@ class ProductsScreen extends StatelessWidget {
                       Spacer(),
                       IconButton(
                         onPressed: () {
-                          // HomeCubit.get(context).changeFavorites(model.id);
-                          // print(model.id);
+                          HomeCubit.get(context).changeFavorites(model.id);
+                          print(model.id);
                         },
                         icon: CircleAvatar(
                           radius: 15.0,
-                          backgroundColor: Colors.grey,
+                          backgroundColor: HomeCubit.get(context).favorites![model.id]! ? defaultColor : Colors.grey,
                           child: Icon(
                             Icons.favorite_border,
                             size: 14.0,
