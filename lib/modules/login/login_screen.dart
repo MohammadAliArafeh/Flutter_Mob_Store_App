@@ -33,12 +33,12 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccessState) {
             if (state.loginModel.status) {
-              showToast(state.loginModel.massage, ToastState.SUCCESS);
+              showToast(massage: state.loginModel.massage, state: ToastState.SUCCESS);
               CacheHelper.setData(
                   key: 'token', value: state.loginModel.data!.token);
               pushAndFinish(context, HomeLayout());
             } else {
-              showToast(state.loginModel.massage, ToastState.ERROR);
+              showToast(massage: state.loginModel.massage,state: ToastState.ERROR);
             }
           }
         },
