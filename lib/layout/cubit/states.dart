@@ -1,4 +1,5 @@
 import 'package:mob_store_app/models/change_favorite_model.dart';
+import 'package:mob_store_app/models/login_model.dart';
 
 abstract class HomeStates{}
 
@@ -28,3 +29,15 @@ class HomeSuccessChangeFavoritesState extends HomeStates {
   HomeSuccessChangeFavoritesState(this.model);
 }
 class HomeErrorChangeFavoritesState extends HomeStates {}
+
+class HomeGetUserDataLoadingState extends HomeStates {}
+
+class HomeGetUserDataSuccessState extends HomeStates {}
+class HomeGetUserDataErrorState extends HomeStates {}
+
+class HomeLoadingUpdateUserState extends HomeStates{}
+class HomeSuccessUpdateUserState extends HomeStates{
+  LoginModel model;
+  HomeSuccessUpdateUserState(this.model);
+}
+class HomeErrorUpdateUserState extends HomeStates{}

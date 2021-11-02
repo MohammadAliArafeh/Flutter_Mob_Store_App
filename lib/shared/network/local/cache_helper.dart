@@ -23,4 +23,11 @@ class CacheHelper {
 static  dynamic getData({required String key}) {
     return sharedPreferences!.get(key);
   }
+
+  static  dynamic removeData({required String key}) {
+    return sharedPreferences!.remove(key);
+  }
 }
+
+
+

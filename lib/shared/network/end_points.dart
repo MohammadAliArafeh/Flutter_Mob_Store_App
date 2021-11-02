@@ -5,3 +5,5 @@ String REGISTER = 'register';
 String HOMEDATA = 'home';
 String GET_CATEGORIES = 'categories';
 String FAVORITES = 'favorites';
+String PROFILE = 'profile';
+String UPDATE_PROFILE = 'update-profile';
