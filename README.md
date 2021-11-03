@@ -1,16 +1,24 @@
-# mob_store_app
+# E-Store
 
-A new Flutter project.
+A Shop App.
 
-## Getting Started
+## State Management Used
 
-This project is a starting point for a Flutter application.
+BloC State Management, Also using null-safety.
 
-A few resources to get you started if this is your first Flutter project:
+## App Fuctionality
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Login, Register, Update Profile with validation.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+View products with categories, Favorites screens.
+
+## Packeges Used
+
+  shared_preferences: ^2.0.8
+  dio: ^4.0.1
+  onboarding: ^2.1.0
+  bloc: ^7.2.1
+  flutter_bloc: ^7.3.1
+  smooth_page_indicator: ^1.0.0+2
+  fluttertoast: ^8.0.8
+  carousel_slider: ^4.0.0
