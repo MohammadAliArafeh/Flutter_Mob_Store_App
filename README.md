@@ -12,6 +12,8 @@ Login, Register, Update Profile with validation.
 
 View products with categories, Favorites screens.
 
+Using RESTful API
+
 ## Packeges Used
 
   shared_preferences: ^2.0.8 .
